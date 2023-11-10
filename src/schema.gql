@@ -6,4 +6,7 @@ type Query {
   """Retorna hola mundo"""
   hola: String!
   random: Float!
+
+  """Retorna un numero random desde cero hasta el numero dado"""
+  randomFromzero(to: Int): Int!
 }
