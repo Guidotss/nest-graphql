@@ -15,8 +15,9 @@ type Query {
 
   """Retorna un numero random desde cero hasta el numero dado"""
   randomFromzero(to: Int): Int!
-  todos: [Todo!]!
+  todos(status: Boolean): [Todo!]!
   todo(id: Int!): Todo!
+  completedTodos: Int!
 }
 
 type Mutation {

@@ -6,15 +6,20 @@ import {
 import { Todo } from './entity/todo.entity';
 import { CreateTodoInput } from './dto/inputs/create-todo.input';
 import { UpdateTodoInput } from './dto/inputs/update-todo.input';
+import { StatusArgs } from './dto/args/status.args';
 
 @Injectable()
 export class TodoService {
   private todos: Todo[] = [
-    { id: 1, description: 'Learn NestJS', done: false },
-    { id: 2, description: 'Learn GraphQL', done: false },
+    { id: 1, description: 'Learn NestJS', done: true },
+    { id: 2, description: 'Learn GraphQL', done: true },
     { id: 3, description: 'Learn TypeScript', done: false },
   ];
-  findAll(): Todo[] {
+  findAll(status?: StatusArgs): Todo[] {
+    if (status.status !== undefined) {
+      const { status: done } = status;
+      return this.todos.filter((todo) => todo.done === done);
+    }
     return this.todos;
   }
 
@@ -56,7 +61,7 @@ export class TodoService {
     return todo;
   }
 
-  remove(id: number) {
+  remove(id: number): Todo {
     if (!id) throw new BadRequestException(`Id is required`);
     const todo = this.todos.find((todo) => todo.id === id);
     if (!todo) throw new NotFoundException(`Todo with id:${id} not found`);
@@ -65,4 +70,9 @@ export class TodoService {
 
     return todo;
   }
+
+  completedTodos(): number {
+    return this.todos.filter((todo) => todo.done).length;
+  }
+
 }
