@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { HelloWorldResolver } from './hello-world/hello-world.resolver';
 import { HelloWorldModule } from './hello-world/hello-world.module';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     HelloWorldModule,
+    TodoModule,
   ],
   controllers: [],
   providers: [HelloWorldResolver],
